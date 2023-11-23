@@ -8,7 +8,6 @@ import vtracer
 import aiofiles  # Import aiofiles for asynchronous file I/O
 
 app = FastAPI()
-
 async def download_image(url: str, local_path: str) -> None:
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
