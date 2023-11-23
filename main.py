@@ -27,7 +27,7 @@ def read_root():
 @app.post("/generate")
 async def generate_svg(input: dict):
     print(input)
-    input_path = "/tmp/input.jpeg"
+    input_path = "/tmp/input.png"
     output_path = "/tmp/output.svg"
     url_input = input.get('url_input')
     try:
