@@ -34,7 +34,7 @@ async def generate_svg(input: dict):
     try:
         await download_image(url_input, input_path)
         convert_image(input_path, output_path) 
-        await asyncio.wait(9) # Introduce a 5-second delay
+        await asyncio.sleep(9) # Introduce a 5-second delay
         async with aiofiles.open(output_path, 'r') as svg_file:
             svg_content = await svg_file.read()
         return JSONResponse(content={"svg": svg_content}, media_type="application/json")
