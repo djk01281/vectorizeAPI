@@ -12,7 +12,7 @@ async def download_image(url: str, local_path: str) -> None:
     
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
-        if response.status_code == 304:
+        if response.content:
             async with aiofiles.open(local_path, 'wb') as file:
                 await file.write(response.content)
 
