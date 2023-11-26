@@ -9,6 +9,7 @@ import aiofiles  # Import aiofiles for asynchronous file I/O
 
 app = FastAPI()
 async def download_image(url: str, local_path: str) -> None:
+    
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
         if response.status_code == 200:
@@ -32,8 +33,7 @@ async def generate_svg(input: dict):
     url_input = input.get('url_input')
     try:
         await download_image(url_input, input_path)
-        convert_image(input_path, output_path)
-        await asyncio.sleep(5)  # Introduce a 5-second delay
+        await convert_image(input_path, output_path)  # Introduce a 5-second delay
         async with aiofiles.open(output_path, 'r') as svg_file:
             svg_content = await svg_file.read()
         return JSONResponse(content={"svg": svg_content}, media_type="application/json")
