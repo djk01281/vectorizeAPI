@@ -18,8 +18,8 @@ async def download_image(url: str, local_path: str) -> None:
         else:
             raise HTTPException(status_code=response.status_code, detail=f"Failed to download image from {url}")
 
-async def convert_image(input_path: str, output_path: str) -> None:
-    await vtracer.convert_image_to_svg_py(input_path, output_path)
+def convert_image(input_path: str, output_path: str) -> None:
+    vtracer.convert_image_to_svg_py(input_path, output_path)
 
 @app.get("/")
 def read_root():
@@ -33,7 +33,8 @@ async def generate_svg(input: dict):
     url_input = input.get('url_input')
     try:
         await download_image(url_input, input_path)
-        await convert_image(input_path, output_path)  # Introduce a 5-second delay
+        convert_image(input_path, output_path) 
+        await asyncio.wait(9) # Introduce a 5-second delay
         async with aiofiles.open(output_path, 'r') as svg_file:
             svg_content = await svg_file.read()
         return JSONResponse(content={"svg": svg_content}, media_type="application/json")
