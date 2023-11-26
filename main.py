@@ -18,8 +18,8 @@ async def download_image(url: str, local_path: str) -> None:
         else:
             raise HTTPException(status_code=response.status_code, detail=f"Failed to download image from {url}")
 
-def convert_image(input_path: str, output_path: str) -> None:
-    vtracer.convert_image_to_svg_py(input_path, output_path)
+async def convert_image(input_path: str, output_path: str) -> None:
+    await vtracer.convert_image_to_svg_py(input_path, output_path)
 
 @app.get("/")
 def read_root():
