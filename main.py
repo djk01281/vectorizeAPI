@@ -18,7 +18,7 @@ async def download_image(url: str, local_path: str) -> None:
 
 
 def convert_image(input_path: str, output_path: str) -> None:
-    vtracer.convert_image_to_svg_py(input_path, output_path, filter_speckle = 10)
+    vtracer.convert_image_to_svg_py(input_path, output_path, filter_speckle = 10, color_precision = 4)
 
 @app.get("/")
 def read_root():
